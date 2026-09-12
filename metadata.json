@@ -1,0 +1,6 @@
+{
+  "name": "KubeOps Cloud CI/CD & Production Runtime",
+  "description": "Nền tảng quản trị CI/CD Green Evidence, Kubernetes Auto-scaling, VPS Servers Fleet (WireGuard Mesh), Prometheus & Grafana Monitoring, Slack Alerting và Automated Backup chuẩn Cloud Free Tier.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
