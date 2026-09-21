@@ -46,7 +46,8 @@ import {
 } from './mock/initialData';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<ActiveTab>('evidence');
+  const [activeTab, setActiveTab] = useState<ActiveTab>('k8s');
+  const clusterConnected = false;
   const [currentProvider] = useState<CloudProvider>('self-hosted');
   const [pipeline, setPipeline] = useState<PipelineRun>(INITIAL_PIPELINE_RUN);
   const [isPipelineRunning, setIsPipelineRunning] = useState(false);
@@ -87,8 +88,9 @@ export default function App() {
   // Header state
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // Re-calculate Pods and HPA when trafficRps changes
+  // Live cluster data is disabled until a real Kubernetes cluster is connected.
   useEffect(() => {
+    if (!clusterConnected) return;
     let desiredReplicas = 2;
     if (trafficRps <= 150) desiredReplicas = 1;
     else if (trafficRps <= 600) desiredReplicas = 2;
@@ -190,8 +192,9 @@ export default function App() {
     );
   }, [trafficRps, hpa.minReplicas, hpa.maxReplicas, nodes.length]);
 
-  // Periodic metrics heartbeat simulator
+  // Demo heartbeat is disabled until a real cluster is connected.
   useEffect(() => {
+    if (!clusterConnected) return;
     const interval = setInterval(() => {
       const now = new Date();
       const timeStr = now.toTimeString().split(' ')[0];
