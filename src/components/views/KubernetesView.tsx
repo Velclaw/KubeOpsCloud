@@ -33,7 +33,6 @@ import {
   CloudProvider,
   ResourceQuotaNamespaceConfig,
 } from '../../types';
-import { CLOUD_PROVIDERS } from '../../mock/initialData';
 
 interface KubernetesViewProps {
   pods: KubernetesPod[];
@@ -62,7 +61,6 @@ export const KubernetesView: React.FC<KubernetesViewProps> = ({
   isNodeProvisioning,
   provider,
 }) => {
-  const currentProviderInfo = CLOUD_PROVIDERS.find((p) => p.id === provider) || CLOUD_PROVIDERS[0];
   const [selectedPod, setSelectedPod] = useState<KubernetesPod | null>(null);
   const [activeSubTab, setActiveSubTab] = useState<'hpa' | 'cluster_autoscaler' | 'resource_quotas'>('hpa');
 
@@ -193,7 +191,7 @@ spec:
                 <Cpu className="w-3.5 h-3.5" /> KUBERNETES RUNTIME v1.30
               </span>
               <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
-                <DollarSign className="w-3.5 h-3.5" /> Free Tier: $0.00/tháng
+                <DollarSign className="w-3.5 h-3.5" /> Self-hosted • cluster chưa kết nối
               </span>
               <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 flex items-center gap-1">
                 <Sparkles className="w-3.5 h-3.5" /> HPA & Cluster Autoscaler

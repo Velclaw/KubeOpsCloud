@@ -30,11 +30,11 @@ function getGeminiClient() {
 app.get("/api/health", (req, res) => {
   res.json({
     status: "healthy",
-    runtime: "kubernetes-production-v1.30.2",
+    runtime: "self-hosted-control-plane",
     uptime: process.uptime(),
     timestamp: new Date().toISOString(),
-    cloudTier: "Free Tier Optimized (GCP / AWS / Oracle Ampere A1)",
-    security: "TLS 1.3 & AES-256 Enabled",
+    clusterConnected: false,
+    security: "Transport security is configured at the deployment layer",
   });
 });
 

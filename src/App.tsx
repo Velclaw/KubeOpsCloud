@@ -9,7 +9,6 @@ import { Header } from './components/Header';
 import { Navigation, ActiveTab } from './components/Navigation';
 import { CiCdView } from './components/views/CiCdView';
 import { KubernetesView } from './components/views/KubernetesView';
-import { CloudFreeTierView } from './components/views/CloudFreeTierView';
 import { MonitoringView } from './components/views/MonitoringView';
 import { AlertsView } from './components/views/AlertsView';
 import { BackupDrView } from './components/views/BackupDrView';
@@ -47,8 +46,9 @@ import {
 } from './mock/initialData';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<ActiveTab>('evidence');
-  const [currentProvider, setCurrentProvider] = useState<CloudProvider>('oracle');
+  const [activeTab, setActiveTab] = useState<ActiveTab>('k8s');
+  const clusterConnected = false;
+  const [currentProvider] = useState<CloudProvider>('self-hosted');
   const [pipeline, setPipeline] = useState<PipelineRun>(INITIAL_PIPELINE_RUN);
   const [isPipelineRunning, setIsPipelineRunning] = useState(false);
 
@@ -88,8 +88,9 @@ export default function App() {
   // Header state
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // Re-calculate Pods and HPA when trafficRps changes
+  // Live cluster data is disabled until a real Kubernetes cluster is connected.
   useEffect(() => {
+    if (!clusterConnected) return;
     let desiredReplicas = 2;
     if (trafficRps <= 150) desiredReplicas = 1;
     else if (trafficRps <= 600) desiredReplicas = 2;
@@ -191,8 +192,9 @@ export default function App() {
     );
   }, [trafficRps, hpa.minReplicas, hpa.maxReplicas, nodes.length]);
 
-  // Periodic metrics heartbeat simulator
+  // Demo heartbeat is disabled until a real cluster is connected.
   useEffect(() => {
+    if (!clusterConnected) return;
     const interval = setInterval(() => {
       const now = new Date();
       const timeStr = now.toTimeString().split(' ')[0];
@@ -546,8 +548,6 @@ export default function App() {
     <div className="min-h-screen bg-[#0c0f17] text-slate-200 flex flex-col font-sans selection:bg-cyan-500/30 selection:text-cyan-200">
       {/* Header */}
       <Header
-        currentProvider={currentProvider}
-        onSelectProvider={setCurrentProvider}
         activeAlertCount={activeAlertCount}
         podCount={pods.length}
         onRefreshMetrics={handleRefresh}
@@ -600,8 +600,6 @@ export default function App() {
             onBulkDeleteVps={handleBulkDeleteVps}
           />
         )}
-
-        {activeTab === 'freetier' && <CloudFreeTierView />}
 
         {activeTab === 'monitoring' && (
           <MonitoringView
