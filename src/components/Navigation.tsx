@@ -8,7 +8,6 @@ import {
   ShieldCheck,
   FileCode,
   Sparkles,
-  Cloud,
   Server,
 } from 'lucide-react';
 
@@ -16,7 +15,6 @@ export type ActiveTab =
   | 'evidence'
   | 'k8s'
   | 'vps'
-  | 'freetier'
   | 'monitoring'
   | 'alerts'
   | 'backup'
@@ -61,14 +59,7 @@ export const Navigation: React.FC<NavigationProps> = ({
       badge: `${vpsCount} Nodes`,
       badgeColor: 'bg-teal-500/20 text-teal-400 border-teal-500/30',
     },
-    {
-      id: 'freetier' as ActiveTab,
-      label: 'Đề xuất Free Tier (AWS / GCP)',
-      icon: Cloud,
-      badge: '$0.00/tháng',
-      badgeColor: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
-    },
-    {
+        {
       id: 'monitoring' as ActiveTab,
       label: 'Prometheus & Grafana',
       icon: Activity,
