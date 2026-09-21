@@ -1,4 +1,4 @@
-export type CloudProvider = 'oracle' | 'gcp' | 'aws';
+export type CloudProvider = 'self-hosted' | 'oracle' | 'gcp' | 'aws';
 
 export interface CloudServiceComparisonItem {
   category: 'Compute' | 'Database' | 'Storage' | 'Networking & CDN' | 'CI/CD & Monitoring';
