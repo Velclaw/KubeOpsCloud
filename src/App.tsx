@@ -9,7 +9,6 @@ import { Header } from './components/Header';
 import { Navigation, ActiveTab } from './components/Navigation';
 import { CiCdView } from './components/views/CiCdView';
 import { KubernetesView } from './components/views/KubernetesView';
-import { CloudFreeTierView } from './components/views/CloudFreeTierView';
 import { MonitoringView } from './components/views/MonitoringView';
 import { AlertsView } from './components/views/AlertsView';
 import { BackupDrView } from './components/views/BackupDrView';
@@ -48,7 +47,7 @@ import {
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('evidence');
-  const [currentProvider, setCurrentProvider] = useState<CloudProvider>('oracle');
+  const [currentProvider] = useState<CloudProvider>('self-hosted');
   const [pipeline, setPipeline] = useState<PipelineRun>(INITIAL_PIPELINE_RUN);
   const [isPipelineRunning, setIsPipelineRunning] = useState(false);
 
@@ -546,8 +545,6 @@ export default function App() {
     <div className="min-h-screen bg-[#0c0f17] text-slate-200 flex flex-col font-sans selection:bg-cyan-500/30 selection:text-cyan-200">
       {/* Header */}
       <Header
-        currentProvider={currentProvider}
-        onSelectProvider={setCurrentProvider}
         activeAlertCount={activeAlertCount}
         podCount={pods.length}
         onRefreshMetrics={handleRefresh}
@@ -600,8 +597,6 @@ export default function App() {
             onBulkDeleteVps={handleBulkDeleteVps}
           />
         )}
-
-        {activeTab === 'freetier' && <CloudFreeTierView />}
 
         {activeTab === 'monitoring' && (
           <MonitoringView
